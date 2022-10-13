@@ -43,7 +43,7 @@ const Header = () => {
       </div>
 
       <div className="flex items-center gap-4 text-sm font-light">
-        <MagnifyingGlassIcon className="h-6 w-6 sm:inline " />
+        <MagnifyingGlassIcon className="hidden md:inline h-6 w-6 sm:inline " />
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="h-6 w-6" />
         <Link href="/account">
