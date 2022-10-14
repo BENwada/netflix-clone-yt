@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ["rb.gy", "image.tmdb.org"],
+    disableStaticImages: true,
   },
 };
 
