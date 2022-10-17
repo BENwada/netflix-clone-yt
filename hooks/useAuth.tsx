@@ -9,9 +9,48 @@ import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { auth } from "../firebase";
 
-const useAuth = () => {
-  const [user, setUser] = useState(false);
-  return <div>useAuth</div>;
+export const AuthProvider = ({ children }: AuthProbiderProps) => {
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  const signUp = async (email: string, password: string) => {
+    setLoading(true);
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+        router.push("/");
+        setLoading(false);
+      })
+      .catch((error) => alert(error.massage))
+      .finally(() => setLoading(false));
+  };
+
+  const signIn = async (email: string, password: string) => {
+    setLoading(true);
+
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+        router.push("/");
+        setLoading(false);
+      })
+      .catch((error) => alert(error.massage))
+      .finally(() => setLoading(false));
+  };
+
+  const logout = async () => {
+    setLoading(true);
+
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => setLoading(false));
+  };
+  return <AuthContext.Provider>{children}</AuthContext.Provider>;
 };
 
 export default useAuth;
