@@ -6,7 +6,7 @@ import {
   User,
 } from "firebase/auth";
 import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 
 interface IAuth {
@@ -27,11 +27,7 @@ const AuthContext = createContext<IAuth>({
   loading: false,
 });
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(null);
@@ -94,17 +90,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setLoading(false));
   };
 
-  const memoedValue = useMemo(
-    () => ({
-      user,
-      signUp,
-      signIn,
-      error,
-      loading,
-      logout,
-    }),
-    [user, loading]
-  );
+  const memoedValue = {
+    user,
+    signUp,
+    signIn,
+    error,
+    loading,
+    logout,
+  };
 
   return (
     <AuthContext.Provider value={memoedValue}>
