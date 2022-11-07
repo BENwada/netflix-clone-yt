@@ -33,7 +33,7 @@ const Plans = () => {
         </button>
       </header>
 
-      <main className="pt-28">
+      <main className="max-w-5xl px-5 pt-28 pb-12 transition-all md:px-10">
         <h1 className="mb-3 text-3xl font-medium">
           Choose the plan that&apos;s right for you
         </h1>
@@ -52,10 +52,15 @@ const Plans = () => {
           </li>
         </ul>
 
-        <div>
-          <div>
+        <div className="mt-4 flex flex-col space-y-4">
+          <div className="flex w-full items-center self-end md:w-3/5">
+            <div className="planBox">standard</div>
+            <div className="planBox">standard</div>
             <div className="planBox">standard</div>
           </div>
+
+          {/* <Table /> */}
+          <button>Subscribe</button>
         </div>
       </main>
     </div>
